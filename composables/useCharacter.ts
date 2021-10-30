@@ -73,8 +73,8 @@ export const useCharacter = ({ name, position, moveKeys, side }: Character) => {
 
   const canMove = (position: CharacterPosition): boolean => {
     if (
-      mapSpots[position.x][position.y] !== undefined &&
-      mapSpots[position.x][position.y] === 1
+      mapSpots[position.y][position.x] !== undefined &&
+      mapSpots[position.y][position.x] === 1
     ) {
       return true;
     }
