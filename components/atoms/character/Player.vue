@@ -1,5 +1,5 @@
 <template>
-  <div class="player" alt="cleber" title="cleber"></div>
+  <div class="player" alt="cleber" title="cleber" id="idPlayer"></div>
 </template>
 
 <script lang="ts">
@@ -12,7 +12,7 @@ const sides = {
   right: -60,
   up: -90,
 };
-
+let havePower = false;
 export default defineComponent({
   props: {
     position: {
@@ -28,6 +28,9 @@ export default defineComponent({
       default: "down",
     },
   },
+  mounted() {
+    document.addEventListener("click", this.clickEvent);
+  },
   computed: {
     topPosition() {
       return `${this.position.y * this.size}px`;
@@ -40,6 +43,20 @@ export default defineComponent({
     },
     playerSidePos() {
       return this.side ? `${sides[this.side]}px` : "0px";
+    },
+  },
+  methods: {
+    clickEvent(event: MouseEvent) {
+      console.log(event.target);
+      console.log(havePower);
+      var v = document.getElementById("idPlayer");
+      if (!havePower) {
+        v?.classList.add("power");
+        havePower = true;
+      } else {
+        v?.classList.remove("power");
+        havePower = false;
+      }
     },
   },
 });
@@ -55,5 +72,20 @@ export default defineComponent({
   background-position: 0px v-bind("playerSidePos");
   top: v-bind("topPosition");
   left: v-bind("leftPosition");
+}
+.power {
+  border-block-color: rgb(0, 252, 210);
+  border-style: groove;
+  border-radius: 20px;
+  animation: spin 2s linear infinite;
+}
+
+.power-wrapper:active .power {
+  animation: spin 2s linear infinite;
+}
+@keyframes spin {
+  100% {
+    transform: rotateZ(360deg);
+  }
 }
 </style>
