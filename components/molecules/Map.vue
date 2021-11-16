@@ -1,12 +1,13 @@
 <template>
   <div class="map">
-    <AtomsCharacterPlayer
+    <AtomsCharacterPlayer 
       :position="{
         x: player.character.position.x,
         y: player.character.position.y,
       }"
       :side="player.character.side"
     ></AtomsCharacterPlayer>
+    <AtomsCharacterHealthBar></AtomsCharacterHealthBar>
   </div>
 </template>
 
@@ -14,6 +15,7 @@
 import { defineComponent, PropType } from "vue";
 import { UseCharacter } from "~~/rpg-game/composables/useCharacter";
 import { Character } from "~~/rpg-game/models/Character";
+
 
 export default defineComponent({
   props: {
@@ -43,6 +45,7 @@ export default defineComponent({
   },
   methods: {
     handleKeyDown(e: KeyboardEvent) {
+      
       console.log(JSON.stringify(this.player.character.position, null, 2));
 
       console.log(e.code);
